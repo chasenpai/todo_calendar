@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_calendar/config/router.dart';
-import 'package:todo_calendar/presentation/home_screen.dart';
-import 'package:todo_calendar/util/color_schemes.dart';
+import 'package:todo_calendar/util/theme.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,17 +17,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const theme = MaterialTheme(TextTheme());
     return MaterialApp.router(
       routerConfig: router,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: lightColorScheme,
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: dartColorScheme,
-        useMaterial3: true,
-      ),
+      theme: theme.light(),
+      darkTheme: theme.dark(),
     );
   }
 }
