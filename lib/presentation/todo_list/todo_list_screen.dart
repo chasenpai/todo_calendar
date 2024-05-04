@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:todo_calendar/presentation/calendar/calendar_view_model.dart';
+import 'package:todo_calendar/presentation/todo_list/todo_list_view_model.dart';
+import 'package:provider/provider.dart';
 
-class CalendarScreen extends ConsumerWidget {
-  const CalendarScreen({super.key});
+class TodoListScreen extends StatelessWidget {
+  const TodoListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(calendarViewModelProvider);
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<TodoListViewModel>();
+    final state = viewModel.state;
     return Scaffold(
-      body: Column(
-        children: [
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
-              ),
-              child: Container(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0,),
+          child: Column(
+            children: [
+              Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onInverseSurface,
                   borderRadius: BorderRadius.circular(16.0),
@@ -33,7 +31,9 @@ class CalendarScreen extends ConsumerWidget {
                   },
                   calendarFormat: state.format,
                   onFormatChanged: (format) {
-                    ref.read(calendarViewModelProvider.notifier).changeFormat(format: format);
+                    context.read<TodoListViewModel>().changeFormat(
+                      format: format,
+                    );
                   },
                   headerStyle: HeaderStyle(
                     headerMargin: const EdgeInsets.only(bottom: 15.0),
@@ -87,7 +87,7 @@ class CalendarScreen extends ConsumerWidget {
                       ),
                     ),
                     markerDecoration: BoxDecoration(
-                      color: Colors.blue[300],
+                      color: Theme.of(context).colorScheme.primary,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -95,15 +95,48 @@ class CalendarScreen extends ConsumerWidget {
                     return isSameDay(state.selectedDay, day);
                   },
                   onDaySelected: (selectedDay, focusedDay) {
-                    ref.read(calendarViewModelProvider.notifier)
-                        .changeDay(selectedDay: selectedDay, focusedDay: focusedDay);
+                    context.read<TodoListViewModel>().changeDay(
+                      selectedDay: selectedDay,
+                      focusedDay: focusedDay,
+                    );
                   },
-                  //eventLoader: getEventsForDay,
+                  onPageChanged: (focusedDay) {
+                    context.read<TodoListViewModel>().changePage(
+                      focusedDay: focusedDay,
+                    );
+                  },
+                  eventLoader: (day) {
+                    return state.todos[day] ?? [];
+                  },
                 ),
               ),
-            ),
+              const SizedBox(height: 8.0,),
+              Expanded(
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    final todo = context.read<TodoListViewModel>().getTodosForDay()[index];
+                    return ListTile(
+                      title: Text(
+                        todo.content,
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 8.0,);
+                  },
+                  itemCount: context.read<TodoListViewModel>().getTodosForDay().length,
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        onPressed: () {
+
+        },
+        child: const Icon(Icons.add,),
       ),
     );
   }
