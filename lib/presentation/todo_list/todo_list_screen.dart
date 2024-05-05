@@ -134,8 +134,11 @@ class TodoListScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        onPressed: () {
-          context.push('/write');
+        onPressed: () async {
+          bool? isSaved = await context.push('/write');
+          if(isSaved != null && isSaved) {
+            viewModel.build();
+          }
         },
         child: const Icon(Icons.add,),
       ),

@@ -24,3 +24,17 @@ extension TodoEntityToModel on TodoEntity {
     );
   }
 }
+
+extension TodoModelToEntity on Todo {
+  TodoEntity toEntity() {
+    return TodoEntity(
+      date: date,
+      title: title,
+      content: content,
+      startHour: startHour,
+      startMinute: startMinute,
+      endHour: endHour,
+      endMinute: endMinute,
+    );
+  }
+}

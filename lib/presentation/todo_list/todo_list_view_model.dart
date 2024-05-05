@@ -12,10 +12,10 @@ class TodoListViewModel with ChangeNotifier {
   TodoListState get state => _state;
 
   TodoListViewModel(this._todoUseCase) {
-    _build();
+    build();
   }
 
-  Future<void> _build() async {
+  Future<void> build() async {
     final day = DateTime.now();
     final todos = await _getTodos(day);
     _state = state.copyWith(
@@ -60,6 +60,6 @@ class TodoListViewModel with ChangeNotifier {
   }
 
   List<Todo> getTodosForDay() {
-    return state.todos![state.selectedDay] ?? [];
+    return state.todos[state.selectedDay] ?? [];
   }
 }

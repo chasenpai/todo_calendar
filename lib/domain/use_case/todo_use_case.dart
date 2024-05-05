@@ -5,8 +5,8 @@ import 'package:todo_calendar/domain/repository/todo_repository.dart';
 @singleton
 class TodoUseCase {
 
-  final TodoRepository todoRepository;
-  TodoUseCase(this.todoRepository);
+  final TodoRepository _todoRepository;
+  TodoUseCase(this._todoRepository);
 
   Future<Map<DateTime, List<Todo>>> getTodos(DateTime day) async {
 
@@ -23,13 +23,18 @@ class TodoUseCase {
       nextMonth = '${day.year + 1}01';
     }
 
-    final thisMonthTodos = await todoRepository.findAllByDay(thisMonth);
-    final lastMonthTodos = await todoRepository.findAllByDay(lastMonth);
-    final nextMonthTodos = await todoRepository.findAllByDay(nextMonth);
+    final thisMonthTodos = await _todoRepository.findAllByDay(thisMonth);
+    final lastMonthTodos = await _todoRepository.findAllByDay(lastMonth);
+    final nextMonthTodos = await _todoRepository.findAllByDay(nextMonth);
     todos.addAll(thisMonthTodos.todos);
     todos.addAll(lastMonthTodos.todos);
     todos.addAll(nextMonthTodos.todos);
-
     return todos;
+  }
+
+  Future<void> saveTodo(Todo todo) async {
+    final day = todo.date;
+    String month = day.year.toString() + day.month.toString().padLeft(2, '0');
+    await _todoRepository.save(month, todo);
   }
 }

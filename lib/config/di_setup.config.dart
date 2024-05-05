@@ -15,6 +15,8 @@ import 'package:todo_calendar/domain/repository/todo_repository.dart' as _i3;
 import 'package:todo_calendar/domain/use_case/todo_use_case.dart' as _i5;
 import 'package:todo_calendar/presentation/todo_list/todo_list_view_model.dart'
     as _i6;
+import 'package:todo_calendar/presentation/todo_write/todo_write_view_model.dart'
+    as _i7;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +34,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i5.TodoUseCase(gh<_i3.TodoRepository>()));
     gh.factory<_i6.TodoListViewModel>(
         () => _i6.TodoListViewModel(gh<_i5.TodoUseCase>()));
+    gh.factory<_i7.TodoWriteViewModel>(
+        () => _i7.TodoWriteViewModel(gh<_i5.TodoUseCase>()));
     return this;
   }
 }
