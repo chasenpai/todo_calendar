@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_calendar/presentation/todo_list/todo_list_view_model.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class TodoListScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0,),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0,),
           child: Column(
             children: [
               Container(
@@ -134,7 +135,7 @@ class TodoListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
-
+          context.push('/write');
         },
         child: const Icon(Icons.add,),
       ),
