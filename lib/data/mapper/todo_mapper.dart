@@ -15,9 +15,12 @@ extension TodoEntityToModel on TodoEntity {
   Todo toModel() {
     return Todo(
       date: date,
+      title: title,
       content: content,
-      startTime: startTime,
-      endTime: endTime,
+      startHour: startHour,
+      startMinute: startMinute,
+      endHour: endHour,
+      endMinute: endMinute,
     );
   }
 }

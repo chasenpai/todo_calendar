@@ -53,24 +53,33 @@ class TodoEntityAdapter extends TypeAdapter<TodoEntity> {
     };
     return TodoEntity(
       date: fields[0] as DateTime,
-      content: fields[1] as String,
-      startTime: fields[2] as int,
-      endTime: fields[3] as int,
+      title: fields[1] as String,
+      content: fields[2] as String,
+      startHour: fields[3] as int,
+      startMinute: fields[4] as int,
+      endHour: fields[5] as int,
+      endMinute: fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, TodoEntity obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.date)
       ..writeByte(1)
-      ..write(obj.content)
+      ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.startTime)
+      ..write(obj.content)
       ..writeByte(3)
-      ..write(obj.endTime);
+      ..write(obj.startHour)
+      ..writeByte(4)
+      ..write(obj.startMinute)
+      ..writeByte(5)
+      ..write(obj.endHour)
+      ..writeByte(6)
+      ..write(obj.endMinute);
   }
 
   @override
