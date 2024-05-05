@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_calendar/presentation/todo_write/component/custom_text_form_field.dart';
+import 'package:todo_calendar/presentation/todo_write/todo_write_view_model.dart';
+import 'package:provider/provider.dart';
 
 class TodoWriteScreen extends StatefulWidget {
   const TodoWriteScreen({super.key});
@@ -11,17 +13,20 @@ class TodoWriteScreen extends StatefulWidget {
 class _TodoWriteScreenState extends State<TodoWriteScreen> {
 
   final formKey = GlobalKey<FormState>();
-  bool dateFocus = false;
-  bool startTimeFocus = false;
-  bool endTimeFocus= false;
   String title = '';
   String content = '';
-  DateTime date = DateTime.now();
+  DateTime date = DateTime.utc(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
   TimeOfDay endTime = const TimeOfDay(hour: 0, minute: 0);
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<TodoWriteViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       appBar: AppBar(
 
@@ -40,14 +45,9 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      setState(() {
-                        FocusScope.of(context).unfocus();
-                        dateFocus = true;
-                      });
+                      viewModel.onDateFocus();
                       await selectDate(context);
-                      setState(() {
-                        dateFocus = false;
-                      });
+                      viewModel.unDateFocus();
                     },
                     child: Container(
                       width: double.infinity,
@@ -55,7 +55,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.onInverseSurface,
                         borderRadius: BorderRadius.circular(16.0),
-                        border: dateFocus ? Border.all(
+                        border: state.isDateFocus ? Border.all(
                           color: Theme.of(context).colorScheme.primary,
                           width: 1.5,
                         ) : null,
@@ -86,14 +86,9 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                       Flexible(
                         child: GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              FocusScope.of(context).unfocus();
-                              startTimeFocus = true;
-                            });
+                            viewModel.onStartTimeFocus();
                             await selectTime(context, true);
-                            setState(() {
-                              startTimeFocus = false;
-                            });
+                            viewModel.unStartTimeFocus();
                           },
                           child: Container(
                             width: double.infinity,
@@ -101,7 +96,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.onInverseSurface,
                               borderRadius: BorderRadius.circular(16.0),
-                              border: startTimeFocus ? Border.all(
+                              border: state.isStartTimeFocus ? Border.all(
                                 color: Theme.of(context).colorScheme.primary,
                                 width: 1.5,
                               ) : null,
@@ -130,14 +125,9 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                       Flexible(
                         child: GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              FocusScope.of(context).unfocus();
-                              endTimeFocus = true;
-                            });
+                            viewModel.onEndTimeFocus();
                             await selectTime(context, false);
-                            setState(() {
-                              endTimeFocus = false;
-                            });
+                            viewModel.unEndTimeFocus();
                           },
                           child: Container(
                             width: double.infinity,
@@ -145,7 +135,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.onInverseSurface,
                               borderRadius: BorderRadius.circular(16.0),
-                              border: endTimeFocus ? Border.all(
+                              border: state.isEndTimeFocus ? Border.all(
                                 color: Theme.of(context).colorScheme.primary,
                                 width: 1.5,
                               ) : null,
@@ -176,7 +166,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                   CustomTextFormField(
                     hintText: '제목을 입력해 주세요.',
                     onChanged: (value) {
-                      title = value;
+                      formKey.currentState!.validate();
                     },
                     onSaved: (value) {
                       title = value!;
@@ -192,7 +182,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                   CustomTextFormField(
                     hintText: '내용을 입력해 주세요.',
                     onChanged: (value) {
-                      content = value;
+                      formKey.currentState!.validate();
                     },
                     onSaved: (value) {
                       content = value!;
@@ -213,7 +203,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
-          onSavePressed();
+          onSavePressed(context);
         },
         child: const Icon(Icons.check,),
       ),
@@ -228,7 +218,11 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
       lastDate: DateTime(2100),
     );
     if(picked != null) {
-      date = picked;
+      date = DateTime.utc(
+        picked.year,
+        picked.month,
+        picked.day,
+      );
     }
   }
 
@@ -246,13 +240,21 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
     }
   }
 
-  void onSavePressed() {
+  void onSavePressed(BuildContext context) async {
     if(formKey.currentState == null) {
       return;
     }
     if(formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      print('pass');
+      final viewModel = context.read<TodoWriteViewModel>();
+      await viewModel.saveTodo(
+        date: date,
+        startTime: startTime,
+        endTime: endTime,
+        title: title,
+        content: content,
+      );
+      Navigator.of(context).pop(true);
     }else{
       print('error');
     }
