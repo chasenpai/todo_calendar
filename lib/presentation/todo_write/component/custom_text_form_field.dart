@@ -16,6 +16,12 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final baseInputBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16.0),
+    );
+    const baseBorderSide = BorderSide(
+      width: 2.0,
+    );
     return TextFormField(
       validator: validator,
       maxLines: null,
@@ -34,33 +40,25 @@ class CustomTextFormField extends StatelessWidget {
         ),
         fillColor: Theme.of(context).colorScheme.onInverseSurface,
         filled: true,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+        enabledBorder: baseInputBorder.copyWith(
+          borderSide: baseBorderSide.copyWith(
             color: Theme.of(context).colorScheme.onInverseSurface,
-            width: 1.5,
           ),
-          borderRadius: BorderRadius.circular(16.0),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+        focusedBorder: baseInputBorder.copyWith(
+          borderSide: baseBorderSide.copyWith(
             color: Theme.of(context).colorScheme.primary,
-            width: 1.5,
           ),
-          borderRadius: BorderRadius.circular(16.0),
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+        errorBorder: baseInputBorder.copyWith(
+          borderSide: baseBorderSide.copyWith(
             color: Theme.of(context).colorScheme.error,
-            width: 1.5,
           ),
-          borderRadius: BorderRadius.circular(16.0),
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+        focusedErrorBorder: baseInputBorder.copyWith(
+          borderSide: baseBorderSide.copyWith(
             color: Theme.of(context).colorScheme.error,
-            width: 1.5,
           ),
-          borderRadius: BorderRadius.circular(16.0),
         ),
       ),
     );

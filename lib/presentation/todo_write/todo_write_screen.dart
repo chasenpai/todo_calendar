@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_calendar/presentation/todo_write/component/custom_field_container.dart';
 import 'package:todo_calendar/presentation/todo_write/component/custom_text_form_field.dart';
 import 'package:todo_calendar/presentation/todo_write/todo_write_view_model.dart';
 import 'package:provider/provider.dart';
@@ -28,9 +29,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
     final viewModel = context.watch<TodoWriteViewModel>();
     final state = viewModel.state;
     return Scaffold(
-      appBar: AppBar(
-
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: SafeArea(
@@ -43,121 +42,39 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  GestureDetector(
+                  _DateField(
+                    isDateFocus: state.isDateFocus,
+                    date: date,
                     onTap: () async {
                       viewModel.onDateFocus();
                       await selectDate(context);
                       viewModel.unDateFocus();
                     },
-                    child: Container(
-                      width: double.infinity,
-                      height: 62,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onInverseSurface,
-                        borderRadius: BorderRadius.circular(16.0),
-                        border: state.isDateFocus ? Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 1.5,
-                        ) : null,
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 30,),
-                          const Icon(Icons.calendar_month),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                '${date.year}-${(date.month).toString().padLeft(2, '0')}-${(date.day).toString().padLeft(2, '0')}',
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                        ],
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 16.0,),
                   Row(
                     children: [
                       Flexible(
-                        child: GestureDetector(
+                        child: _StartTimeField(
+                          isStartTimeFocus: state.isStartTimeFocus,
+                          startTime: startTime,
                           onTap: () async {
                             viewModel.onStartTimeFocus();
                             await selectTime(context, true);
                             viewModel.unStartTimeFocus();
                           },
-                          child: Container(
-                            width: double.infinity,
-                            height: 62,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.onInverseSurface,
-                              borderRadius: BorderRadius.circular(16.0),
-                              border: state.isStartTimeFocus ? Border.all(
-                                color: Theme.of(context).colorScheme.primary,
-                                width: 1.5,
-                              ) : null,
-                            ),
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 30,),
-                                const Icon(Icons.watch_later_outlined),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '${(startTime.hour).toString().padLeft(2, '0')}:${(startTime.minute).toString().padLeft(2, '0')}',
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                       const SizedBox(width: 10,),
                       Flexible(
-                        child: GestureDetector(
+                        child: _EndTimeField(
+                          isEndTimeFocus: state.isEndTimeFocus,
+                          endTime: endTime,
                           onTap: () async {
                             viewModel.onEndTimeFocus();
                             await selectTime(context, false);
                             viewModel.unEndTimeFocus();
                           },
-                          child: Container(
-                            width: double.infinity,
-                            height: 62,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.onInverseSurface,
-                              borderRadius: BorderRadius.circular(16.0),
-                              border: state.isEndTimeFocus ? Border.all(
-                                color: Theme.of(context).colorScheme.primary,
-                                width: 1.5,
-                              ) : null,
-                            ),
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 30,),
-                                const Icon(Icons.watch_later_outlined),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '${(endTime.hour).toString().padLeft(2, '0')}:${(endTime.minute).toString().padLeft(2, '0')}',
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                     ],
@@ -255,8 +172,128 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
         content: content,
       );
       Navigator.of(context).pop(true);
-    }else{
-      print('error');
     }
   }
 }
+
+class _DateField extends StatelessWidget {
+  final bool isDateFocus;
+  final DateTime date;
+  final VoidCallback onTap;
+
+  const _DateField({
+    required this.isDateFocus,
+    required this.date,
+    required this.onTap,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: CustomFieldContainer(
+        isFocus: isDateFocus,
+        child: Row(
+          children: [
+            const SizedBox(width: 30,),
+            const Icon(Icons.calendar_month),
+            Expanded(
+              child: Center(
+                child: Text(
+                  '${date.year}-${(date.month).toString().padLeft(2, '0')}-${(date.day).toString().padLeft(2, '0')}',
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StartTimeField extends StatelessWidget {
+  final bool isStartTimeFocus;
+  final TimeOfDay startTime;
+  final VoidCallback onTap;
+
+  const _StartTimeField({
+    required this.isStartTimeFocus,
+    required this.startTime,
+    required this.onTap,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: CustomFieldContainer(
+        isFocus: isStartTimeFocus,
+        child: Row(
+          children: [
+            const SizedBox(width: 30,),
+            const Icon(Icons.watch_later_outlined),
+            Expanded(
+              child: Center(
+                child: Text(
+                  '${(startTime.hour).toString().padLeft(2, '0')}:${(startTime.minute).toString().padLeft(2, '0')}',
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _EndTimeField extends StatelessWidget {
+  final bool isEndTimeFocus;
+  final TimeOfDay endTime;
+  final VoidCallback onTap;
+
+  const _EndTimeField({
+    required this.isEndTimeFocus,
+    required this.endTime,
+    required this.onTap,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: CustomFieldContainer(
+        isFocus: isEndTimeFocus,
+        child: Row(
+          children: [
+            const SizedBox(width: 30,),
+            const Icon(Icons.watch_later_outlined),
+            Expanded(
+              child: Center(
+                child: Text(
+                  '${(endTime.hour).toString().padLeft(2, '0')}:${(endTime.minute).toString().padLeft(2, '0')}',
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
