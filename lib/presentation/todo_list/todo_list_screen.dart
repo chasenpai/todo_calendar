@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -111,7 +113,7 @@ class TodoListScreen extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 8.0,),
+              const SizedBox(height: 12.0,),
               Expanded(
                 child: ListView.separated(
                   itemBuilder: (context, index) {
@@ -126,15 +128,28 @@ class TodoListScreen extends StatelessWidget {
                         await viewModel.deleteTodo(todo: todo);
                         viewModel.build();
                       },
-                      child: ListTile(
-                        title: Text(
-                          todo.id,
+                      child: GestureDetector(
+                        onTap: () async {
+                          final uri = Uri(
+                            path: '/edit',
+                            queryParameters: {'todo': jsonEncode(todo.toJson()),},
+                          );
+                          bool? isSaved = await context.push(uri.toString());
+                          if(isSaved != null && isSaved) {
+                            viewModel.build();
+                          }
+                        },
+                        child: ListTile(
+                          tileColor: Theme.of(context).colorScheme.onInverseSurface,
+                          title: Text(
+                            todo.id,
+                          ),
                         ),
                       ),
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return const SizedBox(height: 8.0,);
+                    return const SizedBox(height: 12.0,);
                   },
                   itemCount: context.read<TodoListViewModel>().getTodosForDay().length,
                 ),

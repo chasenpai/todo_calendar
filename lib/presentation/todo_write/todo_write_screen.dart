@@ -7,11 +7,11 @@ import 'package:provider/provider.dart';
 
 class TodoWriteScreen extends StatefulWidget {
   final Todo? todo;
-  final DateTime selectedDay;
+  final DateTime? selectedDay;
 
   const TodoWriteScreen({
     this.todo,
-    required this.selectedDay,
+    this.selectedDay,
     super.key,
   });
 
@@ -22,11 +22,27 @@ class TodoWriteScreen extends StatefulWidget {
 class _TodoWriteScreenState extends State<TodoWriteScreen> {
 
   final formKey = GlobalKey<FormState>();
-  String title = '';
-  String content = '';
-  late DateTime date = widget.selectedDay;
-  TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
-  TimeOfDay endTime = const TimeOfDay(hour: 0, minute: 0);
+  late String title;
+  late String content;
+  late DateTime date;
+  late TimeOfDay startTime;
+  late TimeOfDay endTime;
+
+  @override
+  void initState() {
+    super.initState();
+    title = widget.todo?.title ?? '';
+    content = widget.todo?.content ?? '';
+    date = widget.todo?.date ?? widget.selectedDay!;
+    startTime = TimeOfDay(
+      hour: widget.todo?.startHour ?? 0,
+      minute: widget.todo?.startMinute ?? 0,
+    );
+    endTime = TimeOfDay(
+      hour: widget.todo?.endHour ?? 0,
+      minute: widget.todo?.endMinute ?? 0,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +102,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                   const SizedBox(height: 16.0,),
                   CustomTextFormField(
                     hintText: '제목을 입력해 주세요.',
+                    initialValue: title,
                     onChanged: (value) {
                       formKey.currentState!.validate();
                     },
@@ -102,6 +119,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
                   const SizedBox(height: 16.0,),
                   CustomTextFormField(
                     hintText: '내용을 입력해 주세요.',
+                    initialValue: content,
                     onChanged: (value) {
                       formKey.currentState!.validate();
                     },
@@ -168,13 +186,24 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
     if(formKey.currentState!.validate()) {
       formKey.currentState!.save();
       final viewModel = context.read<TodoWriteViewModel>();
-      await viewModel.saveTodo(
-        date: date,
-        startTime: startTime,
-        endTime: endTime,
-        title: title,
-        content: content,
-      );
+      if(widget.todo?.id == null) {
+        await viewModel.writeTodo(
+          date: date,
+          startTime: startTime,
+          endTime: endTime,
+          title: title,
+          content: content,
+        );
+      }else {
+        await viewModel.editTodo(
+          id: widget.todo!.id,
+          date: date,
+          startTime: startTime,
+          endTime: endTime,
+          title: title,
+          content: content,
+        );
+      }
       Navigator.of(context).pop(true);
     }
   }

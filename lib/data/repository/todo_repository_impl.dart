@@ -38,6 +38,26 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
+  Future<void> update(String month, Todo model) async {
+    final box = Hive.box<TodoListEntity>('todo.db');
+    final TodoListEntity? todoList = box.get(month);
+    final Map<DateTime, List<TodoEntity>> todos = todoList!.todos;
+    final List<TodoEntity>? todosByDate = todos[model.date];
+    for (var todo in todosByDate!) {
+      if(todo.id == model.id) {
+        todo.title = model.title;
+        todo.content = model.content;
+        todo.date = model.date;
+        todo.startHour = model.startHour;
+        todo.startMinute = model.startMinute;
+        todo.endHour = model.endHour;
+        todo.endMinute = model.endMinute;
+      }
+      todoList.todos.addAll(todos);
+      box.put(month, todoList);
+    }}
+
+  @override
   Future<void> delete(String month, String id, DateTime date) async {
     final box = Hive.box<TodoListEntity>('todo.db');
     final TodoListEntity? todoList = box.get(month);

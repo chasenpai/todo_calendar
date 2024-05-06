@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? hintText;
+  final String initialValue;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator validator;
 
   const CustomTextFormField({
     this.hintText,
+    required this.initialValue,
     required this.onChanged,
     required this.onSaved,
     required this.validator,
@@ -27,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
       maxLines: null,
       cursorColor: Theme.of(context).colorScheme.primary,
       autofocus: false,
+      initialValue: initialValue,
       onChanged: onChanged,
       onSaved: onSaved,
       decoration: InputDecoration(

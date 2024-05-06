@@ -56,7 +56,7 @@ class TodoWriteViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveTodo({
+  Future<void> writeTodo({
     required DateTime date,
     required TimeOfDay startTime,
     required TimeOfDay endTime,
@@ -75,6 +75,27 @@ class TodoWriteViewModel with ChangeNotifier {
       endHour: endTime.hour,
       endMinute: endTime.minute,
     );
-    await _todoUseCase.saveTodo(todo);
+    await _todoUseCase.writeTodo(todo);
+  }
+
+  Future<void> editTodo({
+    required String id,
+    required DateTime date,
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
+    required String title,
+    required String content,
+  }) async {
+    final todo = Todo(
+      id: id,
+      date: date,
+      title: title,
+      content: content,
+      startHour: startTime.hour,
+      startMinute: startTime.minute,
+      endHour: endTime.hour,
+      endMinute: endTime.minute,
+    );
+    await _todoUseCase.editTodo(todo);
   }
 }

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'todo.freezed.dart';
+part 'todo.g.dart';
 
 @freezed
 class TodoList with _$TodoList {
@@ -22,4 +22,6 @@ class Todo with _$Todo {
     required int endHour,
     required int endMinute,
   }) = _Todo;
+
+  factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 }

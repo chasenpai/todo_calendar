@@ -32,10 +32,16 @@ class TodoUseCase {
     return todos;
   }
 
-  Future<void> saveTodo(Todo todo) async {
+  Future<void> writeTodo(Todo todo) async {
     final day = todo.date;
     String month = day.year.toString() + day.month.toString().padLeft(2, '0');
     await _todoRepository.save(month, todo);
+  }
+
+  Future<void> editTodo(Todo todo) async {
+    final day = todo.date;
+    String month = day.year.toString() + day.month.toString().padLeft(2, '0');
+    await _todoRepository.update(month, todo);
   }
 
   Future<void> deleteTodo(Todo todo) async {

@@ -138,6 +138,10 @@ abstract class _TodoList implements TodoList {
       throw _privateConstructorUsedError;
 }
 
+Todo _$TodoFromJson(Map<String, dynamic> json) {
+  return _Todo.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Todo {
   String get id => throw _privateConstructorUsedError;
@@ -149,6 +153,7 @@ mixin _$Todo {
   int get endHour => throw _privateConstructorUsedError;
   int get endMinute => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TodoCopyWith<Todo> get copyWith => throw _privateConstructorUsedError;
 }
@@ -303,7 +308,7 @@ class __$$TodoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$TodoImpl implements _Todo {
   const _$TodoImpl(
       {required this.id,
@@ -314,6 +319,9 @@ class _$TodoImpl implements _Todo {
       required this.startMinute,
       required this.endHour,
       required this.endMinute});
+
+  factory _$TodoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TodoImplFromJson(json);
 
   @override
   final String id;
@@ -355,6 +363,7 @@ class _$TodoImpl implements _Todo {
                 other.endMinute == endMinute));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, date, title, content,
       startHour, startMinute, endHour, endMinute);
@@ -364,6 +373,13 @@ class _$TodoImpl implements _Todo {
   @pragma('vm:prefer-inline')
   _$$TodoImplCopyWith<_$TodoImpl> get copyWith =>
       __$$TodoImplCopyWithImpl<_$TodoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TodoImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Todo implements Todo {
@@ -376,6 +392,8 @@ abstract class _Todo implements Todo {
       required final int startMinute,
       required final int endHour,
       required final int endMinute}) = _$TodoImpl;
+
+  factory _Todo.fromJson(Map<String, dynamic> json) = _$TodoImpl.fromJson;
 
   @override
   String get id;

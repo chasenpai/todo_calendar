@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_calendar/domain/model/todo.dart';
 import 'package:todo_calendar/presentation/todo_list/todo_list_screen.dart';
 import 'package:todo_calendar/presentation/todo_list/todo_list_view_model.dart';
 import 'package:todo_calendar/presentation/todo_write/todo_write_screen.dart';
@@ -31,6 +34,19 @@ final router = GoRouter(
           selectedDay: Convert.strToDateTime(state.uri.queryParameters['selectedDay']!),
         ),
       );
+      },
+    ),
+    GoRoute(
+      path: '/edit',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) {
+            return getIt.get<TodoWriteViewModel>();
+          },
+          child: TodoWriteScreen(
+            todo: Todo.fromJson(jsonDecode(state.uri.queryParameters['todo']!)),
+          ),
+        );
       },
     ),
   ],
