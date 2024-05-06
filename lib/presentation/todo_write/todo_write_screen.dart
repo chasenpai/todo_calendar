@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:todo_calendar/domain/model/todo.dart';
 import 'package:todo_calendar/presentation/todo_write/component/custom_field_container.dart';
 import 'package:todo_calendar/presentation/todo_write/component/custom_text_form_field.dart';
 import 'package:todo_calendar/presentation/todo_write/todo_write_view_model.dart';
 import 'package:provider/provider.dart';
 
 class TodoWriteScreen extends StatefulWidget {
-  const TodoWriteScreen({super.key});
+  final Todo? todo;
+  final DateTime selectedDay;
+
+  const TodoWriteScreen({
+    this.todo,
+    required this.selectedDay,
+    super.key,
+  });
 
   @override
   State<TodoWriteScreen> createState() => _TodoWriteScreenState();
@@ -16,11 +24,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
   final formKey = GlobalKey<FormState>();
   String title = '';
   String content = '';
-  DateTime date = DateTime.utc(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-  );
+  late DateTime date = widget.selectedDay;
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
   TimeOfDay endTime = const TimeOfDay(hour: 0, minute: 0);
 

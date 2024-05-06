@@ -14,7 +14,11 @@ class TodoListState with _$TodoListState{
   }) = _TodoListState;
 
   static TodoListState init() {
-    final day = DateTime.now();
+    final day = DateTime.utc(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+    );
     return TodoListState(
       selectedDay: day,
       focusedDay: day,

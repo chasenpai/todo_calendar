@@ -4,6 +4,7 @@ import 'package:todo_calendar/presentation/todo_list/todo_list_screen.dart';
 import 'package:todo_calendar/presentation/todo_list/todo_list_view_model.dart';
 import 'package:todo_calendar/presentation/todo_write/todo_write_screen.dart';
 import 'package:todo_calendar/presentation/todo_write/todo_write_view_model.dart';
+import 'package:todo_calendar/util/convert.dart';
 
 import 'di_setup.dart';
 
@@ -21,12 +22,16 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/write',
-      builder: (context, state) => ChangeNotifierProvider(
+      builder: (context, state) {
+        return ChangeNotifierProvider(
         create: (_) {
           return getIt.get<TodoWriteViewModel>();
         },
-        child: const TodoWriteScreen()
-      ),
+        child: TodoWriteScreen(
+          selectedDay: Convert.strToDateTime(state.uri.queryParameters['selectedDay']!),
+        ),
+      );
+      },
     ),
   ],
 );

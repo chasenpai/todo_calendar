@@ -146,7 +146,11 @@ class TodoListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () async {
-          bool? isSaved = await context.push('/write');
+          final uri = Uri(
+            path: '/write',
+            queryParameters: {'selectedDay': state.selectedDay.toString()},
+          );
+          bool? isSaved = await context.push(uri.toString());
           if(isSaved != null && isSaved) {
             viewModel.build();
           }
