@@ -36,4 +36,15 @@ class TodoRepositoryImpl implements TodoRepository {
       box.put(month, todoList);
     }
   }
+
+  @override
+  Future<void> delete(String month, String id, DateTime date) async {
+    final box = Hive.box<TodoListEntity>('todo.db');
+    final TodoListEntity? todoList = box.get(month);
+    final Map<DateTime, List<TodoEntity>> todos = todoList!.todos;
+    final List<TodoEntity>? todosByDate = todos[date];
+    todosByDate!.removeWhere((todo) => todo.id == id);
+    todoList.todos.addAll(todos);
+    box.put(month, todoList);
+  }
 }

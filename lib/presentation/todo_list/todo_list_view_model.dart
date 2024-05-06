@@ -62,4 +62,8 @@ class TodoListViewModel with ChangeNotifier {
   List<Todo> getTodosForDay() {
     return state.todos[state.selectedDay] ?? [];
   }
+
+  Future<void> deleteTodo({required Todo todo}) async {
+    await _todoUseCase.deleteTodo(todo);
+  }
 }

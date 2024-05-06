@@ -116,9 +116,20 @@ class TodoListScreen extends StatelessWidget {
                 child: ListView.separated(
                   itemBuilder: (context, index) {
                     final todo = context.read<TodoListViewModel>().getTodosForDay()[index];
-                    return ListTile(
-                      title: Text(
-                        todo.id,
+                    return Dismissible(
+                      key: ObjectKey(todo.id),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                      ),
+                      onDismissed: (direction) async {
+                        await viewModel.deleteTodo(todo: todo);
+                        viewModel.build();
+                      },
+                      child: ListTile(
+                        title: Text(
+                          todo.id,
+                        ),
                       ),
                     );
                   },

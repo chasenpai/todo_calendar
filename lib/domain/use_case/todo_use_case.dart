@@ -37,4 +37,10 @@ class TodoUseCase {
     String month = day.year.toString() + day.month.toString().padLeft(2, '0');
     await _todoRepository.save(month, todo);
   }
+
+  Future<void> deleteTodo(Todo todo) async {
+    final day = todo.date;
+    String month = day.year.toString() + day.month.toString().padLeft(2, '0');
+    await _todoRepository.delete(month, todo.id, todo.date);
+  }
 }
