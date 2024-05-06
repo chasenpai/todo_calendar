@@ -140,6 +140,7 @@ abstract class _TodoList implements TodoList {
 
 /// @nodoc
 mixin _$Todo {
+  String get id => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
@@ -158,7 +159,8 @@ abstract class $TodoCopyWith<$Res> {
       _$TodoCopyWithImpl<$Res, Todo>;
   @useResult
   $Res call(
-      {DateTime date,
+      {String id,
+      DateTime date,
       String title,
       String content,
       int startHour,
@@ -180,6 +182,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? date = null,
     Object? title = null,
     Object? content = null,
@@ -189,6 +192,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? endMinute = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -229,7 +236,8 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {DateTime date,
+      {String id,
+      DateTime date,
       String title,
       String content,
       int startHour,
@@ -248,6 +256,7 @@ class __$$TodoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? date = null,
     Object? title = null,
     Object? content = null,
@@ -257,6 +266,10 @@ class __$$TodoImplCopyWithImpl<$Res>
     Object? endMinute = null,
   }) {
     return _then(_$TodoImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -293,7 +306,8 @@ class __$$TodoImplCopyWithImpl<$Res>
 
 class _$TodoImpl implements _Todo {
   const _$TodoImpl(
-      {required this.date,
+      {required this.id,
+      required this.date,
       required this.title,
       required this.content,
       required this.startHour,
@@ -301,6 +315,8 @@ class _$TodoImpl implements _Todo {
       required this.endHour,
       required this.endMinute});
 
+  @override
+  final String id;
   @override
   final DateTime date;
   @override
@@ -318,7 +334,7 @@ class _$TodoImpl implements _Todo {
 
   @override
   String toString() {
-    return 'Todo(date: $date, title: $title, content: $content, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute)';
+    return 'Todo(id: $id, date: $date, title: $title, content: $content, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute)';
   }
 
   @override
@@ -326,6 +342,7 @@ class _$TodoImpl implements _Todo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TodoImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
@@ -339,8 +356,8 @@ class _$TodoImpl implements _Todo {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, date, title, content, startHour,
-      startMinute, endHour, endMinute);
+  int get hashCode => Object.hash(runtimeType, id, date, title, content,
+      startHour, startMinute, endHour, endMinute);
 
   @JsonKey(ignore: true)
   @override
@@ -351,7 +368,8 @@ class _$TodoImpl implements _Todo {
 
 abstract class _Todo implements Todo {
   const factory _Todo(
-      {required final DateTime date,
+      {required final String id,
+      required final DateTime date,
       required final String title,
       required final String content,
       required final int startHour,
@@ -359,6 +377,8 @@ abstract class _Todo implements Todo {
       required final int endHour,
       required final int endMinute}) = _$TodoImpl;
 
+  @override
+  String get id;
   @override
   DateTime get date;
   @override

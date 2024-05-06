@@ -16,21 +16,24 @@ class TodoListEntity extends HiveObject {
 @HiveType(typeId: 1)
 class TodoEntity extends HiveObject {
   @HiveField(0)
-  DateTime date;
+  String id;
   @HiveField(1)
-  String title;
+  DateTime date;
   @HiveField(2)
-  String content;
+  String title;
   @HiveField(3)
-  int startHour;
+  String content;
   @HiveField(4)
-  int startMinute;
+  int startHour;
   @HiveField(5)
-  int endHour;
+  int startMinute;
   @HiveField(6)
+  int endHour;
+  @HiveField(7)
   int endMinute;
 
   TodoEntity({
+    required this.id,
     required this.date,
     required this.title,
     required this.content,

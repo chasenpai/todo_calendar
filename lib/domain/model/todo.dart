@@ -13,6 +13,7 @@ class TodoList with _$TodoList {
 @freezed
 class Todo with _$Todo {
   const factory Todo({
+    required String id,
     required DateTime date,
     required String title,
     required String content,

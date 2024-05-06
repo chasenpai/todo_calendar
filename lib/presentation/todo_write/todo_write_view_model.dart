@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:todo_calendar/domain/model/todo.dart';
 import 'package:todo_calendar/domain/use_case/todo_use_case.dart';
 import 'package:todo_calendar/presentation/todo_write/todo_write_state.dart';
+import 'package:uuid/uuid.dart';
 
 @injectable
 class TodoWriteViewModel with ChangeNotifier {
@@ -62,7 +63,10 @@ class TodoWriteViewModel with ChangeNotifier {
     required String title,
     required String content,
   }) async {
+    const uuid = Uuid();
+    final id = uuid.v1();
     final todo = Todo(
+      id: id,
       date: date,
       title: title,
       content: content,

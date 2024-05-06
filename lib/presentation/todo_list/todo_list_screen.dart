@@ -118,7 +118,7 @@ class TodoListScreen extends StatelessWidget {
                     final todo = context.read<TodoListViewModel>().getTodosForDay()[index];
                     return ListTile(
                       title: Text(
-                        todo.content,
+                        todo.id,
                       ),
                     );
                   },

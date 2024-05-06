@@ -14,6 +14,7 @@ extension TodoListEntityToModel on TodoListEntity {
 extension TodoEntityToModel on TodoEntity {
   Todo toModel() {
     return Todo(
+      id: id,
       date: date,
       title: title,
       content: content,
@@ -28,6 +29,7 @@ extension TodoEntityToModel on TodoEntity {
 extension TodoModelToEntity on Todo {
   TodoEntity toEntity() {
     return TodoEntity(
+      id: id,
       date: date,
       title: title,
       content: content,
