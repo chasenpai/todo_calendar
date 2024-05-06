@@ -122,7 +122,16 @@ class TodoListScreen extends StatelessWidget {
                       key: ObjectKey(todo.id),
                       direction: DismissDirection.endToStart,
                       background: Container(
-                        color: Colors.red,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20.0,),
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
                       ),
                       onDismissed: (direction) async {
                         await viewModel.deleteTodo(todo: todo);
@@ -139,10 +148,34 @@ class TodoListScreen extends StatelessWidget {
                             viewModel.build();
                           }
                         },
-                        child: ListTile(
-                          tileColor: Theme.of(context).colorScheme.onInverseSurface,
-                          title: Text(
-                            todo.id,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onInverseSurface,
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              todo.title,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${todo.startHour.toString().padLeft(2, '0')}:${todo.startMinute.toString().padLeft(2, '0')}'
+                              ' ~ ${todo.endHour.toString().padLeft(2, '0')}:${todo.endMinute.toString().padLeft(2, '0')}',
+                            ),
+                            leading: IconButton(
+                              icon: const Icon(
+                                Icons.check,
+                              ),
+                              onPressed: () async {
+                                await viewModel.checkTodo(todo: todo);
+                                viewModel.build();
+                              },
+                              color: todo.isCheck ? Theme.of(context).colorScheme.primary : Colors.white,
+                              iconSize: 28.0,
+                            ),
                           ),
                         ),
                       ),

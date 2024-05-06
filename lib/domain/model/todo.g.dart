@@ -15,6 +15,7 @@ _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
       startMinute: (json['startMinute'] as num).toInt(),
       endHour: (json['endHour'] as num).toInt(),
       endMinute: (json['endMinute'] as num).toInt(),
+      isCheck: json['isCheck'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) =>
       'startMinute': instance.startMinute,
       'endHour': instance.endHour,
       'endMinute': instance.endMinute,
+      'isCheck': instance.isCheck,
     };

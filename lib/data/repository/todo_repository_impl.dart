@@ -52,6 +52,7 @@ class TodoRepositoryImpl implements TodoRepository {
         todo.startMinute = model.startMinute;
         todo.endHour = model.endHour;
         todo.endMinute = model.endMinute;
+        todo.isCheck = model.isCheck;
       }
       todoList.todos.addAll(todos);
       box.put(month, todoList);

@@ -74,6 +74,7 @@ class TodoWriteViewModel with ChangeNotifier {
       startMinute: startTime.minute,
       endHour: endTime.hour,
       endMinute: endTime.minute,
+      isCheck: false,
     );
     await _todoUseCase.writeTodo(todo);
   }
@@ -85,6 +86,7 @@ class TodoWriteViewModel with ChangeNotifier {
     required TimeOfDay endTime,
     required String title,
     required String content,
+    required bool isCheck,
   }) async {
     final todo = Todo(
       id: id,
@@ -95,6 +97,7 @@ class TodoWriteViewModel with ChangeNotifier {
       startMinute: startTime.minute,
       endHour: endTime.hour,
       endMinute: endTime.minute,
+      isCheck: isCheck,
     );
     await _todoUseCase.editTodo(todo);
   }

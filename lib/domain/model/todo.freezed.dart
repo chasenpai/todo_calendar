@@ -152,6 +152,7 @@ mixin _$Todo {
   int get startMinute => throw _privateConstructorUsedError;
   int get endHour => throw _privateConstructorUsedError;
   int get endMinute => throw _privateConstructorUsedError;
+  bool get isCheck => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -171,7 +172,8 @@ abstract class $TodoCopyWith<$Res> {
       int startHour,
       int startMinute,
       int endHour,
-      int endMinute});
+      int endMinute,
+      bool isCheck});
 }
 
 /// @nodoc
@@ -195,6 +197,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? startMinute = null,
     Object? endHour = null,
     Object? endMinute = null,
+    Object? isCheck = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -229,6 +232,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.endMinute
           : endMinute // ignore: cast_nullable_to_non_nullable
               as int,
+      isCheck: null == isCheck
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -248,7 +255,8 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       int startHour,
       int startMinute,
       int endHour,
-      int endMinute});
+      int endMinute,
+      bool isCheck});
 }
 
 /// @nodoc
@@ -269,6 +277,7 @@ class __$$TodoImplCopyWithImpl<$Res>
     Object? startMinute = null,
     Object? endHour = null,
     Object? endMinute = null,
+    Object? isCheck = null,
   }) {
     return _then(_$TodoImpl(
       id: null == id
@@ -303,6 +312,10 @@ class __$$TodoImplCopyWithImpl<$Res>
           ? _value.endMinute
           : endMinute // ignore: cast_nullable_to_non_nullable
               as int,
+      isCheck: null == isCheck
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -318,7 +331,8 @@ class _$TodoImpl implements _Todo {
       required this.startHour,
       required this.startMinute,
       required this.endHour,
-      required this.endMinute});
+      required this.endMinute,
+      this.isCheck = false});
 
   factory _$TodoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TodoImplFromJson(json);
@@ -339,10 +353,13 @@ class _$TodoImpl implements _Todo {
   final int endHour;
   @override
   final int endMinute;
+  @override
+  @JsonKey()
+  final bool isCheck;
 
   @override
   String toString() {
-    return 'Todo(id: $id, date: $date, title: $title, content: $content, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute)';
+    return 'Todo(id: $id, date: $date, title: $title, content: $content, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, isCheck: $isCheck)';
   }
 
   @override
@@ -360,13 +377,14 @@ class _$TodoImpl implements _Todo {
                 other.startMinute == startMinute) &&
             (identical(other.endHour, endHour) || other.endHour == endHour) &&
             (identical(other.endMinute, endMinute) ||
-                other.endMinute == endMinute));
+                other.endMinute == endMinute) &&
+            (identical(other.isCheck, isCheck) || other.isCheck == isCheck));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, date, title, content,
-      startHour, startMinute, endHour, endMinute);
+      startHour, startMinute, endHour, endMinute, isCheck);
 
   @JsonKey(ignore: true)
   @override
@@ -391,7 +409,8 @@ abstract class _Todo implements Todo {
       required final int startHour,
       required final int startMinute,
       required final int endHour,
-      required final int endMinute}) = _$TodoImpl;
+      required final int endMinute,
+      final bool isCheck}) = _$TodoImpl;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$TodoImpl.fromJson;
 
@@ -411,6 +430,8 @@ abstract class _Todo implements Todo {
   int get endHour;
   @override
   int get endMinute;
+  @override
+  bool get isCheck;
   @override
   @JsonKey(ignore: true)
   _$$TodoImplCopyWith<_$TodoImpl> get copyWith =>

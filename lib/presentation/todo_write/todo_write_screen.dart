@@ -202,6 +202,7 @@ class _TodoWriteScreenState extends State<TodoWriteScreen> {
           endTime: endTime,
           title: title,
           content: content,
+          isCheck: widget.todo!.isCheck,
         );
       }
       Navigator.of(context).pop(true);

@@ -60,13 +60,14 @@ class TodoEntityAdapter extends TypeAdapter<TodoEntity> {
       startMinute: fields[5] as int,
       endHour: fields[6] as int,
       endMinute: fields[7] as int,
+      isCheck: fields[8] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, TodoEntity obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -82,7 +83,9 @@ class TodoEntityAdapter extends TypeAdapter<TodoEntity> {
       ..writeByte(6)
       ..write(obj.endHour)
       ..writeByte(7)
-      ..write(obj.endMinute);
+      ..write(obj.endMinute)
+      ..writeByte(8)
+      ..write(obj.isCheck);
   }
 
   @override

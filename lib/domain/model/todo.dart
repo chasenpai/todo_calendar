@@ -21,6 +21,7 @@ class Todo with _$Todo {
     required int startMinute,
     required int endHour,
     required int endMinute,
+    @Default(false) bool isCheck
   }) = _Todo;
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);

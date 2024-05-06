@@ -66,4 +66,11 @@ class TodoListViewModel with ChangeNotifier {
   Future<void> deleteTodo({required Todo todo}) async {
     await _todoUseCase.deleteTodo(todo);
   }
+
+  Future<void> checkTodo({required Todo todo}) async {
+    todo = todo.copyWith(
+      isCheck: !todo.isCheck,
+    );
+    await _todoUseCase.editTodo(todo);
+  }
 }

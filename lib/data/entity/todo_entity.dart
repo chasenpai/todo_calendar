@@ -31,6 +31,8 @@ class TodoEntity extends HiveObject {
   int endHour;
   @HiveField(7)
   int endMinute;
+  @HiveField(8)
+  bool isCheck;
 
   TodoEntity({
     required this.id,
@@ -41,5 +43,6 @@ class TodoEntity extends HiveObject {
     required this.startMinute,
     required this.endHour,
     required this.endMinute,
+    required this.isCheck,
   });
 }

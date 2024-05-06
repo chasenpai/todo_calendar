@@ -22,6 +22,7 @@ extension TodoEntityToModel on TodoEntity {
       startMinute: startMinute,
       endHour: endHour,
       endMinute: endMinute,
+      isCheck: isCheck,
     );
   }
 }
@@ -37,6 +38,7 @@ extension TodoModelToEntity on Todo {
       startMinute: startMinute,
       endHour: endHour,
       endMinute: endMinute,
+      isCheck: isCheck,
     );
   }
 }
