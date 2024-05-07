@@ -23,31 +23,56 @@ class TodoUseCase {
       nextMonth = '${day.year + 1}01';
     }
 
-    final thisMonthTodos = await _todoRepository.findAllByDay(thisMonth);
-    final lastMonthTodos = await _todoRepository.findAllByDay(lastMonth);
-    final nextMonthTodos = await _todoRepository.findAllByDay(nextMonth);
-    todos.addAll(thisMonthTodos.todos);
-    todos.addAll(lastMonthTodos.todos);
-    todos.addAll(nextMonthTodos.todos);
+    final thisMonthTodoList = await _todoRepository.findAllByDay(thisMonth);
+    final lastMonthTodoList = await _todoRepository.findAllByDay(lastMonth);
+    final nextMonthTodoList = await _todoRepository.findAllByDay(nextMonth);
+
+    _sortingTodo(thisMonthTodoList.todos);
+    _sortingTodo(lastMonthTodoList.todos);
+    _sortingTodo(nextMonthTodoList.todos);
+
+    todos.addAll(thisMonthTodoList.todos);
+    todos.addAll(lastMonthTodoList.todos);  
+    todos.addAll(nextMonthTodoList.todos);
     return todos;
   }
 
+  void _sortingTodo(Map<DateTime, List<Todo>> todos) {
+    todos.forEach((date, todoList) {
+      todoList.sort((a, b) {
+        int compareStartHour = a.startHour.compareTo(b.startHour);
+        if (compareStartHour == 0) {
+          int compareStartMinute = a.startMinute.compareTo(b.startMinute);
+          if (compareStartMinute == 0) {
+            int compareEndHour = a.endHour.compareTo(b.endHour);
+            if (compareEndHour == 0) {
+              return a.endMinute.compareTo(b.endMinute);
+            }
+            return compareEndHour;
+          }
+          return compareStartMinute;
+        }
+        return compareStartHour;
+      });
+    });
+  }
+
   Future<void> writeTodo(Todo todo) async {
-    String month = concatMonthStr(todo.date);
+    String month = _concatMonthStr(todo.date);
     await _todoRepository.save(month, todo);
   }
 
   Future<void> editTodo(Todo todo) async {
-    String month = concatMonthStr(todo.date);
+    String month = _concatMonthStr(todo.date);
     await _todoRepository.update(month, todo);
   }
 
   Future<void> deleteTodo(Todo todo) async {
-    String month = concatMonthStr(todo.date);
+    String month = _concatMonthStr(todo.date);
     await _todoRepository.delete(month, todo.id, todo.date);
   }
 
-  String concatMonthStr(DateTime day) {
+  String _concatMonthStr(DateTime day) {
     return day.year.toString() + day.month.toString().padLeft(2, '0');
   }
 }
