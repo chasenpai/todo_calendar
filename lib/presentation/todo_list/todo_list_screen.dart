@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:todo_calendar/presentation/todo_list/todo_list_event.dart';
 import 'package:todo_calendar/presentation/todo_list/todo_list_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -34,9 +35,7 @@ class TodoListScreen extends StatelessWidget {
                   },
                   calendarFormat: state.format,
                   onFormatChanged: (format) {
-                    context.read<TodoListViewModel>().changeFormat(
-                      format: format,
-                    );
+                    viewModel.onEvent(TodoListEvent.changeFormat(format: format));
                   },
                   headerStyle: HeaderStyle(
                     headerMargin: const EdgeInsets.only(bottom: 15.0),
@@ -98,15 +97,13 @@ class TodoListScreen extends StatelessWidget {
                     return isSameDay(state.selectedDay, day);
                   },
                   onDaySelected: (selectedDay, focusedDay) {
-                    context.read<TodoListViewModel>().changeDay(
+                    viewModel.onEvent(TodoListEvent.changeDay(
                       selectedDay: selectedDay,
                       focusedDay: focusedDay,
-                    );
+                    ));
                   },
                   onPageChanged: (focusedDay) {
-                    context.read<TodoListViewModel>().changePage(
-                      focusedDay: focusedDay,
-                    );
+                    viewModel.onEvent(TodoListEvent.changePage(focusedDay: focusedDay));
                   },
                   eventLoader: (day) {
                     return state.todos[day] ?? [];
@@ -133,9 +130,8 @@ class TodoListScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      onDismissed: (direction) async {
-                        await viewModel.deleteTodo(todo: todo);
-                        viewModel.build();
+                      onDismissed: (direction) {
+                        viewModel.onEvent(TodoListEvent.deleteTodo(todo: todo));
                       },
                       child: GestureDetector(
                         onTap: () async {
@@ -145,7 +141,7 @@ class TodoListScreen extends StatelessWidget {
                           );
                           bool? isSaved = await context.push(uri.toString());
                           if(isSaved != null && isSaved) {
-                            viewModel.build();
+                            viewModel.onEvent(const TodoListEvent.loadTodos());
                           }
                         },
                         child: Container(
@@ -169,9 +165,8 @@ class TodoListScreen extends StatelessWidget {
                               icon: const Icon(
                                 Icons.check,
                               ),
-                              onPressed: () async {
-                                await viewModel.checkTodo(todo: todo);
-                                viewModel.build();
+                              onPressed: () {
+                                viewModel.onEvent(TodoListEvent.checkTodo(todo: todo));
                               },
                               color: todo.isCheck ? Theme.of(context).colorScheme.primary : Colors.white,
                               iconSize: 28.0,
@@ -200,7 +195,7 @@ class TodoListScreen extends StatelessWidget {
           );
           bool? isSaved = await context.push(uri.toString());
           if(isSaved != null && isSaved) {
-            viewModel.build();
+            viewModel.onEvent(const TodoListEvent.loadTodos());
           }
         },
         child: const Icon(Icons.add,),
@@ -208,3 +203,13 @@ class TodoListScreen extends StatelessWidget {
     );
   }
 }
+
+class _Calendar extends StatelessWidget {
+  const _Calendar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
