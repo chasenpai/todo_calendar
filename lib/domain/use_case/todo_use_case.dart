@@ -33,20 +33,21 @@ class TodoUseCase {
   }
 
   Future<void> writeTodo(Todo todo) async {
-    final day = todo.date;
-    String month = day.year.toString() + day.month.toString().padLeft(2, '0');
+    String month = concatMonthStr(todo.date);
     await _todoRepository.save(month, todo);
   }
 
   Future<void> editTodo(Todo todo) async {
-    final day = todo.date;
-    String month = day.year.toString() + day.month.toString().padLeft(2, '0');
+    String month = concatMonthStr(todo.date);
     await _todoRepository.update(month, todo);
   }
 
   Future<void> deleteTodo(Todo todo) async {
-    final day = todo.date;
-    String month = day.year.toString() + day.month.toString().padLeft(2, '0');
+    String month = concatMonthStr(todo.date);
     await _todoRepository.delete(month, todo.id, todo.date);
+  }
+
+  String concatMonthStr(DateTime day) {
+    return day.year.toString() + day.month.toString().padLeft(2, '0');
   }
 }
