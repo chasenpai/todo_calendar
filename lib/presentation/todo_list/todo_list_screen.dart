@@ -14,6 +14,12 @@ class TodoListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.watch<TodoListViewModel>();
     final state = viewModel.state;
+
+    final baseBoxDeco = BoxDecoration(
+      color: Theme.of(context).colorScheme.onInverseSurface,
+      borderRadius: BorderRadius.circular(16.0),
+    );
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -21,10 +27,7 @@ class TodoListScreen extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onInverseSurface,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
+                decoration: baseBoxDeco,
                 child: TableCalendar(
                   focusedDay: state.focusedDay,
                   firstDay: DateTime(1800),
@@ -39,7 +42,7 @@ class TodoListScreen extends StatelessWidget {
                   },
                   headerStyle: HeaderStyle(
                     headerMargin: const EdgeInsets.only(bottom: 15.0),
-                    decoration: BoxDecoration(
+                    decoration: baseBoxDeco.copyWith(
                       color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(16.0),
@@ -50,11 +53,8 @@ class TodoListScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 18.0,
                     ),
-                    formatButtonDecoration: BoxDecoration(
+                    formatButtonDecoration: baseBoxDeco.copyWith(
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(
-                        16.0,
-                      ),
                       color: Colors.white,
                     ),
                     formatButtonTextStyle: const TextStyle(
@@ -64,30 +64,15 @@ class TodoListScreen extends StatelessWidget {
                   ),
                   calendarStyle: CalendarStyle(
                     isTodayHighlighted: false,
-                    defaultDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        16.0,
-                      ),
-                    ),
-                    weekendDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        16.0,
-                      ),
-                    ),
-                    selectedDecoration: BoxDecoration(
+                    defaultDecoration: baseBoxDeco,
+                    weekendDecoration: baseBoxDeco,
+                    selectedDecoration: baseBoxDeco.copyWith(
                       color: Theme.of(context).colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(
-                        16.0,
-                      ),
                     ),
                     selectedTextStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                     ),
-                    outsideDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        16.0,
-                      ),
-                    ),
+                    outsideDecoration: baseBoxDeco,
                     markerDecoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       shape: BoxShape.circle,
@@ -119,8 +104,7 @@ class TodoListScreen extends StatelessWidget {
                       key: ObjectKey(todo.id),
                       direction: DismissDirection.endToStart,
                       background: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
+                        decoration: baseBoxDeco.copyWith(
                           color: Theme.of(context).colorScheme.error,
                         ),
                         alignment: Alignment.centerRight,
@@ -132,6 +116,18 @@ class TodoListScreen extends StatelessWidget {
                       ),
                       onDismissed: (direction) {
                         viewModel.onEvent(TodoListEvent.deleteTodo(todo: todo));
+                        final restoreSnackBar = SnackBar(
+                          duration: const Duration(seconds: 3),
+                          content: const Text('todo has been deleted',
+                          ),
+                          action: SnackBarAction(
+                            label: 'restore',
+                            onPressed: () {
+                              viewModel.onEvent(const TodoListEvent.restoreTodo());
+                            },
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(restoreSnackBar);
                       },
                       child: GestureDetector(
                         onTap: () async {
@@ -145,10 +141,7 @@ class TodoListScreen extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.onInverseSurface,
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
+                          decoration: baseBoxDeco,
                           child: ListTile(
                             title: Text(
                               todo.title,
@@ -212,4 +205,14 @@ class _Calendar extends StatelessWidget {
     return const Placeholder();
   }
 }
+
+class _TodoList extends StatelessWidget {
+  const _TodoList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
 

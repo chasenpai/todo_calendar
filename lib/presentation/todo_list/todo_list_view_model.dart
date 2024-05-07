@@ -13,6 +13,8 @@ class TodoListViewModel with ChangeNotifier {
 
   TodoListState get state => _state;
 
+  Todo? _recentlyDeletedTodo;
+
   TodoListViewModel(this._todoUseCase) {
     _loadTodos();
   }
@@ -50,6 +52,7 @@ class TodoListViewModel with ChangeNotifier {
       deleteTodo: (todo) => _deleteTodo(
         todo: todo,
       ),
+      restoreTodo: _restoreTodo,
       checkTodo: (todo) => _checkTodo(todo: todo),
     );
   }
@@ -87,7 +90,16 @@ class TodoListViewModel with ChangeNotifier {
 
   Future<void> _deleteTodo({required Todo todo}) async {
     await _todoUseCase.deleteTodo(todo);
+    _recentlyDeletedTodo = todo;
     await _loadTodos();
+  }
+
+  Future<void> _restoreTodo() async {
+    if(_recentlyDeletedTodo != null) {
+      await _todoUseCase.writeTodo(_recentlyDeletedTodo!);
+      _recentlyDeletedTodo = null;
+      await _loadTodos();
+    }
   }
 
   Future<void> _checkTodo({required Todo todo}) async {

@@ -24,6 +24,7 @@ mixin _$TodoListEvent {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,6 +35,7 @@ mixin _$TodoListEvent {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +46,7 @@ mixin _$TodoListEvent {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) =>
@@ -55,6 +58,7 @@ mixin _$TodoListEvent {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) =>
       throw _privateConstructorUsedError;
@@ -65,6 +69,7 @@ mixin _$TodoListEvent {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +80,7 @@ mixin _$TodoListEvent {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) =>
@@ -143,6 +149,7 @@ class _$LoadTodosImpl implements LoadTodos {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) {
     return loadTodos();
@@ -156,6 +163,7 @@ class _$LoadTodosImpl implements LoadTodos {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) {
     return loadTodos?.call();
@@ -169,6 +177,7 @@ class _$LoadTodosImpl implements LoadTodos {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) {
@@ -186,6 +195,7 @@ class _$LoadTodosImpl implements LoadTodos {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) {
     return loadTodos(this);
@@ -199,6 +209,7 @@ class _$LoadTodosImpl implements LoadTodos {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) {
     return loadTodos?.call(this);
@@ -212,6 +223,7 @@ class _$LoadTodosImpl implements LoadTodos {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) {
@@ -296,6 +308,7 @@ class _$ChangeFormatImpl implements ChangeFormat {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) {
     return changeFormat(format);
@@ -309,6 +322,7 @@ class _$ChangeFormatImpl implements ChangeFormat {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) {
     return changeFormat?.call(format);
@@ -322,6 +336,7 @@ class _$ChangeFormatImpl implements ChangeFormat {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) {
@@ -339,6 +354,7 @@ class _$ChangeFormatImpl implements ChangeFormat {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) {
     return changeFormat(this);
@@ -352,6 +368,7 @@ class _$ChangeFormatImpl implements ChangeFormat {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) {
     return changeFormat?.call(this);
@@ -365,6 +382,7 @@ class _$ChangeFormatImpl implements ChangeFormat {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) {
@@ -465,6 +483,7 @@ class _$ChangeDayImpl implements ChangeDay {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) {
     return changeDay(selectedDay, focusedDay);
@@ -478,6 +497,7 @@ class _$ChangeDayImpl implements ChangeDay {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) {
     return changeDay?.call(selectedDay, focusedDay);
@@ -491,6 +511,7 @@ class _$ChangeDayImpl implements ChangeDay {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) {
@@ -508,6 +529,7 @@ class _$ChangeDayImpl implements ChangeDay {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) {
     return changeDay(this);
@@ -521,6 +543,7 @@ class _$ChangeDayImpl implements ChangeDay {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) {
     return changeDay?.call(this);
@@ -534,6 +557,7 @@ class _$ChangeDayImpl implements ChangeDay {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) {
@@ -627,6 +651,7 @@ class _$ChangePageImpl implements ChangePage {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) {
     return changePage(focusedDay);
@@ -640,6 +665,7 @@ class _$ChangePageImpl implements ChangePage {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) {
     return changePage?.call(focusedDay);
@@ -653,6 +679,7 @@ class _$ChangePageImpl implements ChangePage {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) {
@@ -670,6 +697,7 @@ class _$ChangePageImpl implements ChangePage {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) {
     return changePage(this);
@@ -683,6 +711,7 @@ class _$ChangePageImpl implements ChangePage {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) {
     return changePage?.call(this);
@@ -696,6 +725,7 @@ class _$ChangePageImpl implements ChangePage {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) {
@@ -796,6 +826,7 @@ class _$ChangeTodoImpl implements ChangeTodo {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) {
     return deleteTodo(todo);
@@ -809,6 +840,7 @@ class _$ChangeTodoImpl implements ChangeTodo {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) {
     return deleteTodo?.call(todo);
@@ -822,6 +854,7 @@ class _$ChangeTodoImpl implements ChangeTodo {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) {
@@ -839,6 +872,7 @@ class _$ChangeTodoImpl implements ChangeTodo {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) {
     return deleteTodo(this);
@@ -852,6 +886,7 @@ class _$ChangeTodoImpl implements ChangeTodo {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) {
     return deleteTodo?.call(this);
@@ -865,6 +900,7 @@ class _$ChangeTodoImpl implements ChangeTodo {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) {
@@ -882,6 +918,139 @@ abstract class ChangeTodo implements TodoListEvent {
   @JsonKey(ignore: true)
   _$$ChangeTodoImplCopyWith<_$ChangeTodoImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RestoreTodoImplCopyWith<$Res> {
+  factory _$$RestoreTodoImplCopyWith(
+          _$RestoreTodoImpl value, $Res Function(_$RestoreTodoImpl) then) =
+      __$$RestoreTodoImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RestoreTodoImplCopyWithImpl<$Res>
+    extends _$TodoListEventCopyWithImpl<$Res, _$RestoreTodoImpl>
+    implements _$$RestoreTodoImplCopyWith<$Res> {
+  __$$RestoreTodoImplCopyWithImpl(
+      _$RestoreTodoImpl _value, $Res Function(_$RestoreTodoImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RestoreTodoImpl implements RestoreTodo {
+  const _$RestoreTodoImpl();
+
+  @override
+  String toString() {
+    return 'TodoListEvent.restoreTodo()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RestoreTodoImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadTodos,
+    required TResult Function(CalendarFormat format) changeFormat,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        changeDay,
+    required TResult Function(DateTime focusedDay) changePage,
+    required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
+    required TResult Function(Todo todo) checkTodo,
+  }) {
+    return restoreTodo();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadTodos,
+    TResult? Function(CalendarFormat format)? changeFormat,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
+    TResult? Function(DateTime focusedDay)? changePage,
+    TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
+    TResult? Function(Todo todo)? checkTodo,
+  }) {
+    return restoreTodo?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadTodos,
+    TResult Function(CalendarFormat format)? changeFormat,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
+    TResult Function(DateTime focusedDay)? changePage,
+    TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
+    TResult Function(Todo todo)? checkTodo,
+    required TResult orElse(),
+  }) {
+    if (restoreTodo != null) {
+      return restoreTodo();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadTodos value) loadTodos,
+    required TResult Function(ChangeFormat value) changeFormat,
+    required TResult Function(ChangeDay value) changeDay,
+    required TResult Function(ChangePage value) changePage,
+    required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
+    required TResult Function(CheckTodo value) checkTodo,
+  }) {
+    return restoreTodo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadTodos value)? loadTodos,
+    TResult? Function(ChangeFormat value)? changeFormat,
+    TResult? Function(ChangeDay value)? changeDay,
+    TResult? Function(ChangePage value)? changePage,
+    TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
+    TResult? Function(CheckTodo value)? checkTodo,
+  }) {
+    return restoreTodo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadTodos value)? loadTodos,
+    TResult Function(ChangeFormat value)? changeFormat,
+    TResult Function(ChangeDay value)? changeDay,
+    TResult Function(ChangePage value)? changePage,
+    TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
+    TResult Function(CheckTodo value)? checkTodo,
+    required TResult orElse(),
+  }) {
+    if (restoreTodo != null) {
+      return restoreTodo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RestoreTodo implements TodoListEvent {
+  const factory RestoreTodo() = _$RestoreTodoImpl;
 }
 
 /// @nodoc
@@ -964,6 +1133,7 @@ class _$CheckTodoImpl implements CheckTodo {
         changeDay,
     required TResult Function(DateTime focusedDay) changePage,
     required TResult Function(Todo todo) deleteTodo,
+    required TResult Function() restoreTodo,
     required TResult Function(Todo todo) checkTodo,
   }) {
     return checkTodo(todo);
@@ -977,6 +1147,7 @@ class _$CheckTodoImpl implements CheckTodo {
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult? Function(DateTime focusedDay)? changePage,
     TResult? Function(Todo todo)? deleteTodo,
+    TResult? Function()? restoreTodo,
     TResult? Function(Todo todo)? checkTodo,
   }) {
     return checkTodo?.call(todo);
@@ -990,6 +1161,7 @@ class _$CheckTodoImpl implements CheckTodo {
     TResult Function(DateTime selectedDay, DateTime focusedDay)? changeDay,
     TResult Function(DateTime focusedDay)? changePage,
     TResult Function(Todo todo)? deleteTodo,
+    TResult Function()? restoreTodo,
     TResult Function(Todo todo)? checkTodo,
     required TResult orElse(),
   }) {
@@ -1007,6 +1179,7 @@ class _$CheckTodoImpl implements CheckTodo {
     required TResult Function(ChangeDay value) changeDay,
     required TResult Function(ChangePage value) changePage,
     required TResult Function(ChangeTodo value) deleteTodo,
+    required TResult Function(RestoreTodo value) restoreTodo,
     required TResult Function(CheckTodo value) checkTodo,
   }) {
     return checkTodo(this);
@@ -1020,6 +1193,7 @@ class _$CheckTodoImpl implements CheckTodo {
     TResult? Function(ChangeDay value)? changeDay,
     TResult? Function(ChangePage value)? changePage,
     TResult? Function(ChangeTodo value)? deleteTodo,
+    TResult? Function(RestoreTodo value)? restoreTodo,
     TResult? Function(CheckTodo value)? checkTodo,
   }) {
     return checkTodo?.call(this);
@@ -1033,6 +1207,7 @@ class _$CheckTodoImpl implements CheckTodo {
     TResult Function(ChangeDay value)? changeDay,
     TResult Function(ChangePage value)? changePage,
     TResult Function(ChangeTodo value)? deleteTodo,
+    TResult Function(RestoreTodo value)? restoreTodo,
     TResult Function(CheckTodo value)? checkTodo,
     required TResult orElse(),
   }) {
