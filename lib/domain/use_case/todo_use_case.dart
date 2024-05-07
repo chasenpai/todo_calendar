@@ -32,7 +32,7 @@ class TodoUseCase {
     _sortingTodo(nextMonthTodoList.todos);
 
     todos.addAll(thisMonthTodoList.todos);
-    todos.addAll(lastMonthTodoList.todos);  
+    todos.addAll(lastMonthTodoList.todos);
     todos.addAll(nextMonthTodoList.todos);
     return todos;
   }
